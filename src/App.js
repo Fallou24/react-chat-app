@@ -9,13 +9,16 @@ import Register from "./pages/register/Register";
 
 const App = () => {
   const user = useContext(authContext);
-  console.log(user);
+  
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={user ? <Home /> : <Navigate to="/login" />} />
-        <Route path="/register" element={user ? <Navigate to="/" />:<Register />} />
-        <Route path="/login" element={user ? <Navigate to="/" />:<Login />} />
+        <Route
+          path="/register"
+          element={user ? <Navigate to="/" /> : <Register />}
+        />
+        <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
       </Routes>
     </BrowserRouter>
   );
