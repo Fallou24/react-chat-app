@@ -5,6 +5,7 @@
   align-items: center;
   &__container {
     width: 75%;
+    max-width: 968px;
     height: 80vh;
     background: #fff;
     display: flex;
@@ -44,7 +45,11 @@
       }
       .search__form {
         border-bottom: 1px solid rgba(255, 255, 255, 0.432);
-
+        .notFound{
+          color: rgba(255, 255, 255, 0.589);
+          padding-left: .75rem;
+          padding-bottom: .5rem;
+        }
         input {
           width: 100%;
           padding: 0.75rem;

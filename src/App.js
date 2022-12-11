@@ -9,7 +9,7 @@ import Register from "./pages/register/Register";
 
 const App = () => {
   const user = useContext(authContext);
-  console.log(user);
+  
   return (
     <BrowserRouter>
       <Routes>
