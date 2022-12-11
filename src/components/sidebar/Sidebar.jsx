@@ -1,4 +1,6 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { auth } from '../../firebase/firebase';
 import ChatList from '../chatList/ChatList';
 import SearchInput from '../searchInput/SearchInput';
 
@@ -10,7 +12,7 @@ const Sidebar = () => {
                 <p className='user__detail'>
                     <img src="/img/pic.jpg" alt="" className='user__img' />
                     <span>John</span>
-                    <button>Logout</button>
+                    <button onClick={()=>signOut(auth)}>Logout</button>
                 </p>
             </div>
             <SearchInput />
