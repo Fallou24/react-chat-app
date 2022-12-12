@@ -1,5 +1,4 @@
 import {
-  arrayUnion,
   collection,
   doc,
   getDocs,
@@ -23,6 +22,7 @@ const SearchInput = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const searchTerm = e.target[0].value;
+
     const q = query(
       collection(db, "users"),
       where("displayName", "==", searchTerm)
@@ -37,8 +37,8 @@ const SearchInput = () => {
         setSearchRes(doc.data());
       });
     }
-    document.querySelector("form").reset();
 
+    document.querySelector("form").reset();
   };
   const handleChat = async () => {
     const combinedId =
@@ -53,23 +53,27 @@ const SearchInput = () => {
     const querySnapshot = await getDocs(q);
 
     if (querySnapshot.empty) {
-      await setDoc(doc(db, "chats", combinedId), {});
-      await updateDoc(doc(db, "userChats", user.uid), {
-        freinds: arrayUnion({
-          uid: searchRes.uid,
-          displayName: searchRes.displayName,
-          photoURL: searchRes.photoURL,
-          lastMessage: "",
-        }),
+      await setDoc(doc(db, "chats", combinedId), {
+        messages: [],
       });
-      await setDoc(doc(db, "userChats", searchRes.uid), {
-        freinds: arrayUnion({
+      await setDoc(doc(db, "users/" + user.uid + "/userChats", combinedId), {
+        uid: searchRes.uid,
+        displayName: searchRes.displayName,
+        photoURL: searchRes.photoURL,
+        lastMessage: "",
+        date: "",
+      });
+
+      await setDoc(
+        doc(db, "users/" + searchRes.uid + "/userChats", combinedId),
+        {
           uid: user.uid,
           displayName: user.displayName,
           photoURL: user.photoURL,
           lastMessage: "",
-        }),
-      });
+          date: "",
+        }
+      );
     }
     setSearchRes("");
   };

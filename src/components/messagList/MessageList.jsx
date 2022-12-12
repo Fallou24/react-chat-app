@@ -1,42 +1,33 @@
-import React from 'react';
+import React from "react";
+import { useEffect } from "react";
+import { doc, onSnapshot } from "firebase/firestore";
+import { db } from "../../firebase/firebase";
+import { useContext } from "react";
+import { userInfo } from "../../context/ChatContext";
+import { useState } from "react";
+import Message from "../message/Message";
 
-const MessageList = () => {
-    return (
-        <div className='message__list'>
-            <div className="message__list-container">
-                <div className="message">
-                    <p>
-                        <img src="/img/pic.jpg" alt="" className='sender__img' /><br />
-                        <span className='date'>just now</span>
-                    </p>
-                    <p className='message__content'>
-                        <span>Lorem ipsum dolor sitdolor</span>
-                        <img src="/img/pic.jpg" alt="" className='message__img' />
-                    </p>
-                </div>
-                <div className="message current__msg" >
-                    <p className='message__left'>
-                        <img src="/img/pic.jpg" alt="" className='sender__img' /><br />
-                        <span className='date'>just now</span>
-                    </p>
-                    <p className='message__content'>
-                        <span>Lorem ipsum dolor sit.</span>
-                        <img src="/img/pic.jpg" alt="" className='message__img' />
-                    </p>
-                </div>
-                <div className="message">
-                    <p>
-                        <img src="/img/pic.jpg" alt="" className='sender__img' /><br />
-                        <span className='date'>just now</span>
-                    </p>
-                    <p className='message__content'>
-                        <span>Lorem ipsum dolor sit.</span>
-                        <img src="/img/pic.jpg" alt="" className='message__img' />
-                    </p>
-                </div>
-            </div>
-        </div>
-    );
+const MessageList = ({ isFetching }) => {
+  const [messages, setMessages] = useState([]);
+  const { state } = useContext(userInfo);
+  useEffect(() => {
+    onSnapshot(doc(db, "chats", state.chatId), (doc) => {
+      setMessages(doc.data());
+    });
+  }, [state.chatId]);
+
+  return (
+    <div className="message__list">
+      <div className="message__list-container">
+        {messages.messages?.map((message, index) => {
+          return (
+            <Message key={index} message={message} isFetching={isFetching} />
+          );
+        })}
+      </div>
+      {isFetching && <p className="loading">sending in progress...</p>}
+    </div>
+  );
 };
 
 export default MessageList;

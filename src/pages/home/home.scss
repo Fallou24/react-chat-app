@@ -45,10 +45,10 @@
       }
       .search__form {
         border-bottom: 1px solid rgba(255, 255, 255, 0.432);
-        .notFound{
+        .notFound {
           color: rgba(255, 255, 255, 0.589);
-          padding-left: .75rem;
-          padding-bottom: .5rem;
+          padding-left: 0.75rem;
+          padding-bottom: 0.5rem;
         }
         input {
           width: 100%;
@@ -78,7 +78,13 @@
           border-radius: 50%;
         }
         .last__msg {
+          display: block;
+          width: 100px;
+          white-space: nowrap;
           color: rgba(255, 255, 255, 0.664);
+          font-size: 0.85rem;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
       .chat__list {
@@ -86,7 +92,6 @@
         .last__msg {
           color: rgba(255, 255, 255, 0.774);
         }
-        
       }
     }
     .messages {
@@ -95,6 +100,16 @@
   }
 }
 .messages {
+  &.no__chat {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: rgba(128, 128, 128, 0.589);
+    }
+  }
   &__top {
     background: #5d5b8d;
     display: flex;
@@ -102,6 +117,7 @@
     justify-content: space-between;
     height: 60px;
     padding: 0 1rem;
+
     .right {
       display: flex;
       align-items: center;
@@ -132,73 +148,78 @@
     height: calc(80vh - 110px);
     background: #ddddf7;
     overflow: auto;
+    .loading {
+      text-align: right;
+      font-weight: 500;
+      padding-right: 0.75rem;
+      padding-bottom: 0.75rem;
+      font-size: 1rem;
+    }
     &::-webkit-scrollbar {
       width: 10px;
     }
     &::-webkit-scrollbar-thumb {
-      background:#5d5b8d;
+      background: #5d5b8d;
     }
     &::-webkit-scrollbar-track {
       background: #f1f1f1;
       border-radius: 10px;
     }
-    .message__list-container{
+    .message__list-container {
       padding: 1rem;
-      .message{
+      .message {
         width: 50%;
         display: grid;
         grid-template-columns: max-content 1fr;
         column-gap: 1rem;
-        margin-bottom: .75rem;
+        margin-bottom: 0.75rem;
       }
-      .message.current__msg{
+      .message.current__msg {
         margin-left: auto;
         grid-template-columns: 1fr max-content;
-        .message__left{
+        .message__left {
           order: 2;
         }
-        .message__content{
+        .message__content {
           order: 1;
           text-align: right;
-          span{
+          span {
             background: #fff;
             color: #000;
             border-radius: 10px;
             border-top-right-radius: 0;
-            
           }
         }
-        
       }
-      .date{
-        font-size: .85rem;
+      .date {
+        font-size: 0.85rem;
+        color: rgba(0, 0, 0, 0.849);
       }
-      .sender__img{
+      .sender__img {
         width: 30px;
         height: 30px;
         object-fit: cover;
         border-radius: 50%;
       }
-      .message__content{
-        margin-top: .5rem;
-        .message__img{
+      .message__content {
+        margin-top: 0.5rem;
+        .message__img {
           height: 175px;
           width: 90%;
           object-fit: cover;
           border-radius: 5px;
         }
-        span{
+        span {
           display: inline-block;
           background: #8da4f1;
-          margin-bottom: .75rem;
-          padding: .5rem .3rem;
+          margin-bottom: 0.75rem;
+          padding: 0.5rem 0.3rem;
           border-radius: 10px;
           border-top-left-radius: 0;
           color: #fff;
           
         }
       }
-      
     }
   }
   .message__input {

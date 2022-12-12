@@ -46,9 +46,7 @@ const Register = () => {
                   displayName: name,
                   photoURL: downloadURL,
                 });
-                await setDoc(doc(db, "userChats", res.user.uid), {
-                  freinds: [],
-                });
+                
                 navigate("/");
               }
             );

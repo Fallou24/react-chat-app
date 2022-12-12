@@ -1,14 +1,19 @@
 import React from "react";
+import { useState } from "react";
+import { useContext } from "react";
+import { userInfo } from "../../context/ChatContext";
 import MessageInput from "../messageInput/MessageInput";
 import MessageList from "../messagList/MessageList";
 
 const Messages = () => {
-  return (
+  const { state } = useContext(userInfo);
+  const [isFetching,setIsFetching] = useState(false)
+  return state.chatId ? (
     <div className="messages">
       <div className="messages__top">
         <p className="current__freind">
-          <img src="/img/pic.jpg" alt="" />
-          <span>Pierre</span>
+          <img src={state.user.photoURL} alt="" />
+          <span>{state.user.displayName}</span>
         </p>
         <p className="right">
           <img src="/img/cam.png" alt="" />
@@ -16,8 +21,12 @@ const Messages = () => {
           <img src="/img/more.png" alt="" />
         </p>
       </div>
-      <MessageList />
-      <MessageInput />
+      <MessageList isFetching={isFetching} />
+      <MessageInput isFetching={isFetching} setIsFetching={setIsFetching} />
+    </div>
+  ) : (
+    <div className="messages no__chat">
+      <p>Choose a chat to start the conversation</p>
     </div>
   );
 };
