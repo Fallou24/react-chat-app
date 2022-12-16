@@ -7,7 +7,7 @@ import MessageList from "../messagList/MessageList";
 
 const Messages = () => {
   const { state } = useContext(userInfo);
-  const [isFetching,setIsFetching] = useState(false)
+
   return state.chatId ? (
     <div className="messages">
       <div className="messages__top">
@@ -21,8 +21,8 @@ const Messages = () => {
           <img src="/img/more.png" alt="" />
         </p>
       </div>
-      <MessageList isFetching={isFetching} />
-      <MessageInput isFetching={isFetching} setIsFetching={setIsFetching} />
+      <MessageList />
+      <MessageInput />
     </div>
   ) : (
     <div className="messages no__chat">

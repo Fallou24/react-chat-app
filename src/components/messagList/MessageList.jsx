@@ -7,7 +7,7 @@ import { userInfo } from "../../context/ChatContext";
 import { useState } from "react";
 import Message from "../message/Message";
 
-const MessageList = ({ isFetching }) => {
+const MessageList = () => {
   const [messages, setMessages] = useState([]);
   const { state } = useContext(userInfo);
   useEffect(() => {
@@ -21,11 +21,10 @@ const MessageList = ({ isFetching }) => {
       <div className="message__list-container">
         {messages.messages?.map((message, index) => {
           return (
-            <Message key={index} message={message} isFetching={isFetching} />
+            <Message key={index} message={message}/>
           );
         })}
       </div>
-      {isFetching && <p className="loading">sending in progress...</p>}
     </div>
   );
 };

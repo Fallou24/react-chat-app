@@ -13,10 +13,11 @@ import { userInfo } from "../../context/ChatContext";
 import { authContext } from "../../context/AuthContextProvider";
 import { useState } from "react";
 
-const MessageInput = ({ setIsFetching, isFetching }) => {
+const MessageInput = () => {
   const { state } = useContext(userInfo);
   const [text, setText] = useState("");
   const [file, setFile] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
   const user = useContext(authContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -45,24 +46,7 @@ const MessageInput = ({ setIsFetching, isFetching }) => {
                     date: Timestamp.now(),
                   }),
                 });
-                await updateDoc(
-                  doc(db, "users/" + user.uid + "/userChats", state.chatId),
-                  {
-                    date: serverTimestamp(),
-                    lastMessage: text,
-                  }
-                );
-                await updateDoc(
-                  doc(
-                    db,
-                    "users/" + state.user.uid + "/userChats",
-                    state.chatId
-                  ),
-                  {
-                    date: serverTimestamp(),
-                    lastMessage: text,
-                  }
-                );
+
                 setIsFetching(false);
               }
             );
@@ -76,22 +60,22 @@ const MessageInput = ({ setIsFetching, isFetching }) => {
             date: Timestamp.now(),
           }),
         });
-        await updateDoc(
-          doc(db, "users/" + user.uid + "/userChats", state.chatId),
-          {
-            date: serverTimestamp(),
-            lastMessage: text,
-          }
-        );
-        await updateDoc(
-          doc(db, "users/" + state.user.uid + "/userChats", state.chatId),
-          {
-            date: serverTimestamp(),
-            lastMessage: text,
-          }
-        );
       }
 
+      await updateDoc(
+        doc(db, "users/" + user.uid + "/userChats", state.chatId),
+        {
+          date: serverTimestamp(),
+          lastMessage: text,
+        }
+      );
+      await updateDoc(
+        doc(db, "users/" + state.user.uid + "/userChats", state.chatId),
+        {
+          date: serverTimestamp(),
+          lastMessage: text,
+        }
+      );
       setText("");
       setFile(null);
     }
@@ -115,7 +99,9 @@ const MessageInput = ({ setIsFetching, isFetching }) => {
             style={{ display: "none" }}
             onChange={(e) => setFile(e.target.files[0])}
           />
-          <button disabled={isFetching}>Send</button>
+          <button disabled={isFetching}>
+            {isFetching ? "Sending..." : "Send"}
+          </button>
         </div>
       </form>
     </div>
