@@ -2,10 +2,13 @@ import React, { useEffect } from "react";
 import { useRef } from "react";
 import { useContext } from "react";
 import { authContext } from "../../context/AuthContextProvider";
+import { userInfo } from "../../context/ChatContext";
 
 const Message = ({ message }) => {
   const user = useContext(authContext);
+  const { state } = useContext(userInfo);
   const ref = useRef();
+  console.log(state);
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);
@@ -15,7 +18,7 @@ const Message = ({ message }) => {
       className={message.uid === user.uid ? "message current__msg" : "message"}
     >
       <p className="message__left">
-        <img src={user.photoURL} alt="" className="sender__img" />
+        <img src={message.uid===user.uid ? user.photoURL : state.user.photoURL} alt="" className="sender__img" />
         <br />
         <span className="date">just now</span>
       </p>
