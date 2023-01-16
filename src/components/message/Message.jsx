@@ -8,7 +8,7 @@ const Message = ({ message }) => {
   const user = useContext(authContext);
   const { state } = useContext(userInfo);
   const ref = useRef();
-  console.log(state);
+  
   useEffect(() => {
     ref.current?.scrollIntoView({ behavior: "smooth" });
   }, [message]);

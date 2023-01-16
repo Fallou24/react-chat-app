@@ -9,7 +9,7 @@ import Message from "../message/Message";
 
 const MessageList = () => {
   const [messages, setMessages] = useState([]);
-  const { state } = useContext(userInfo);
+  const { state } = useContext(userInfo); 
   useEffect(() => {
     onSnapshot(doc(db, "chats", state.chatId), (doc) => {
       setMessages(doc.data());

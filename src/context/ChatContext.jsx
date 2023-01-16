@@ -14,6 +14,11 @@ const ChatContext = ({ children }) => {
           chatId: action.payload.id,
           user: action.payload.user,
         };
+      case "logout":
+        return {
+          chatId: "",
+          user: {},
+        };
 
       default:
         return state;
